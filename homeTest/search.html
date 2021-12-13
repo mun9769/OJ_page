@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="./hangul.min.js"></script>
+</head>
+<body>
+    검색어 : <input type="text" id="txt" />
+    <ul id="find"></ul>
+ 
+    <script>
+        // 검색할 배열
+        var arr = [
+            { name: "홍길동" , href:"https://www.naver.com"},
+            { name: "한국" , href:"https://www.naver.com"},
+            { name: "호가든" , href:"https://www.naver.com"},
+            { name: "프로그램목록" , href:"https://www.naver.com"},
+            { name: "프로세스" , href:"https://www.naver.com"},
+            { name: "공통" , href:"https://www.naver.com"},
+            { name: "아키텍쳐" , href:"https://www.naver.com"},
+            { name: "앙칼지다" , href:"https://www.naver.com"},
+            { name: "학사행정" , href:"https://www.naver.com"},
+            { name: "일반부속" , href:"https://www.naver.com"},
+            { name: "학습 및 취업" , href:"https://www.naver.com"},
+            { name: "테이블정의서" , href:"https://www.naver.com"},
+            { name: "테이저건" , href:"https://www.naver.com"},
+            { name: "정의서" , href:"https://www.naver.com"},
+            { name: "현행화" , href:"https://www.naver.com"},
+            { name: "졸업" , href:"https://www.naver.com"},
+            { name: "바인더" , href:"https://www.naver.com"},
+            { name: "대학본부" , href:"https://www.naver.com"},
+            { name: "에디터" , href:"https://www.naver.com"},
+            { name: "Visual Studio Code" , href:"https://www.naver.com"},
+            { name: "Edit Plus" , href:"https://www.naver.com"},
+            { name: "소나무" , href:"https://www.naver.com"},
+            { name: "민들레" , href:"https://www.naver.com"},
+            { name: "나뭇가지" , href:"https://www.naver.com"},
+            { name: "갑천" , href:"https://www.naver.com"},
+            { name: "한강" , href:"https://www.naver.com"},
+            { name: "금강" , href:"https://www.naver.com"},
+            { name: "도안동" , href:"https://www.naver.com"},
+            { name: "월평동" , href:"https://www.naver.com"},
+            { name: "대전광역시" , href:"https://www.naver.com"},
+            { name: "서울" , href:"https://www.naver.com"},
+            { name: "경기도" , href:"https://www.naver.com"},
+            { name: "성남시" , href:"https://www.naver.com"},
+            { name: "모니터" , href:"https://www.naver.com"},
+            { name: "이클립스" , href:"https://www.naver.com"},
+            { name: "탐색기" , href:"https://www.naver.com"},
+            { name: "엑셀" , href:"https://www.naver.com"},
+            { name: "크롬" , href:"https://www.naver.com"},
+            { name: "파이어폭스" , href:"https://www.naver.com"},
+            { name: "텔레그램" , href:"https://www.naver.com"},
+            { name: "팟플레이어" , href:"https://www.naver.com"},
+            { name: "마이크로소프트" , href:"https://www.naver.com"},
+            { name: "애플" , href:"https://www.naver.com"},
+            { name: "LG" , href:"https://www.naver.com"},
+            { name: "삼성" , href:"https://www.naver.com"},
+            { name: "오라클" , href:"https://www.naver.com"},
+        ];
+ 
+        // object 에 초성필드 추가 {name:"홍길동", diassembled:"ㅎㄱㄷ"}
+        arr.forEach(function (item) {
+            var dis = Hangul.disassemble(item.name, true);
+            var cho = dis.reduce(function (prev, elem) {
+                elem = elem[0] ? elem[0] : elem;
+                return prev + elem;
+            }, "");
+            item.diassembled = cho;
+        });
+ 
+        console.log(arr);
+ 
+ 
+        var ul = document.getElementById('find');
+        document.getElementById('txt').addEventListener('keyup', function () {
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+ 
+            var search = this.value;
+            var search1 = Hangul.disassemble(search).join("");  // ㄺ=>ㄹㄱ
+ 
+ 
+            arr
+            // 문자열 검색 || 초성검색
+            .filter(function (item) {
+                return item.name.includes(search) || item.diassembled.includes(search1);
+            })
+            // 검색결과 ul 아래에 li 로 추가
+            .forEach(function (item) {
+                var li = document.createElement('li');
+
+                var a = document.createElement('a');
+                a.innerHTML = item.name;
+                a.setAttribute("href", item.href);
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
+

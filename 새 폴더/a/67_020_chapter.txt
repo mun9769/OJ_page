@@ -1,0 +1,1 @@
+how do i read external program output using slot in QT?
