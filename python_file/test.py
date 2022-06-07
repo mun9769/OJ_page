@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from openpyxl import Workbook
 # driver = webdriver.Chrome('C://Users//New//Desktop//OJ_page//python_file//chromedriver.exe')
 driver = webdriver.Chrome('C://Users//user//Desktop//OJ_page//python_file//chromedriver.exe')
@@ -49,19 +50,14 @@ for count in range(majors_len):
 
     for i, row in enumerate(rows):
         cols = row.find_elements_by_tag_name('td')
-        if i > 23: break
+        cols = row.find_elements(by=By.TAG_NAME, value ='td')
         for j, col in enumerate(cols):
             index_string = chr(65+ i) + str(j+1)
+            if 91 <= 65 + i: 
+                index_string = chr(i / 26 + 65 - 1) + chr(65 + i % 26) + str(j+1) #이거 맞는지 확인
             ws[index_string] = col.get_attribute('innerText')
             # print(col.get_attribute('innerText'))
     
-    a = 10
 ##########################################
 
 wb.save(filename='hawing.xlsx')
-
-
-# import requests
-
-# req = requests.get('https://sugang.inha.ac.kr/sugang/SU_51001/Lec_Time_Search.htm')
-# print(req.text)
