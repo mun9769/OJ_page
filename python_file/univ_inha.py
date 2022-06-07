@@ -54,10 +54,10 @@ for count in range(majors_len):
         for j, col in enumerate(cols):
             index_string = chr(65+ i) + str(j+1)
             if 91 <= 65 + i: 
-                index_string = chr(i / 26 + 65 - 1) + chr(65 + i % 26) + str(j+1) #이거 맞는지 확인
+                index_string = chr(int(i / 26) + 65 - 1) + chr(65 + i % 26) + str(j+1) #이거 맞는지 확인
             ws[index_string] = col.get_attribute('innerText')
             # print(col.get_attribute('innerText'))
     
 ##########################################
 
-wb.save(filename='hawing.xlsx')
+wb.save(filename='univ_inha.xlsx')
